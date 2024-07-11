@@ -1,4 +1,4 @@
-package com.example.cinema1.Table;
+package com.example.cinema1.domain;
 import jakarta.persistence.*;
 
 @MappedSuperclass

@@ -1,10 +1,9 @@
-package com.example.cinema1.Table;
+package com.example.cinema1.domain;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "покупка")
-public class Purchase {
-    private int id;
+public class Purchase extends BaseEntityId{
     private Users users;
     private Sessions sessions;
     private Tickets tickets;
@@ -17,17 +16,8 @@ public class Purchase {
     }
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_пользователя", referencedColumnName = "id_пользователя")
+    @JoinColumn(name = "id_пользователя", referencedColumnName = "id")
     public Users getUsers() {
         return users;
     }
@@ -36,7 +26,7 @@ public class Purchase {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_сеанса", referencedColumnName = "id_сеанса")
+    @JoinColumn(name = "id_сеанса", referencedColumnName = "id")
     public Sessions getSessions() {
         return sessions;
     }
@@ -45,7 +35,7 @@ public class Purchase {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_билета", referencedColumnName = "id_билета")
+    @JoinColumn(name = "id_билета", referencedColumnName = "id")
     public Tickets getTickets() {
         return tickets;
     }

@@ -1,11 +1,10 @@
-package com.example.cinema1.Table;
+package com.example.cinema1.domain;
 import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "фильмы")
-public class Movies {
-    private int id;
+public class Movies extends BaseEntityId{
     private String title;
     private int releaseYear;
     private String genre;
@@ -26,15 +25,6 @@ public class Movies {
         this.ageLimit = ageLimit;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_фильма")
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Column(name = "Название")
     public String getTitle() {

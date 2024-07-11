@@ -1,10 +1,9 @@
-package com.example.cinema1.Table;
+package com.example.cinema1.domain;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "проходят")
-public class Pass {
-    private int id;
+public class Pass extends BaseEntityId{
     private Halls halls;
     private Movies movies;
     private Sessions sessions;
@@ -17,17 +16,8 @@ public class Pass {
     }
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_зала", referencedColumnName = "id_зала")
+    @JoinColumn(name = "id_зала", referencedColumnName = "id")
     public Halls getHalls() {
         return halls;
     }
@@ -36,7 +26,7 @@ public class Pass {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_фильма", referencedColumnName = "id_фильма")
+    @JoinColumn(name = "id_фильма", referencedColumnName = "id")
     public Movies getMovies() {
         return movies;
     }
@@ -45,7 +35,7 @@ public class Pass {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_сеанса", referencedColumnName = "id_сеанса")
+    @JoinColumn(name = "id_сеанса", referencedColumnName = "id")
     public Sessions getSessions() {
         return sessions;
     }

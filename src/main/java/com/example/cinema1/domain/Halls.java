@@ -1,11 +1,10 @@
-package com.example.cinema1.Table;
+package com.example.cinema1.domain;
 import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "залы")
-public class Halls {
-    private int id;
+public class Halls extends BaseEntityId{
     private int seats;
     private String type;
     private int hallNumber;
@@ -18,16 +17,6 @@ public class Halls {
         this.hallNumber = hallNumber;
     }
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_зала")
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Column(name = "Количество мест")
     public int getSeats() {

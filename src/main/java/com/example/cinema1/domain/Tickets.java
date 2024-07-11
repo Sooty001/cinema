@@ -1,11 +1,10 @@
-package com.example.cinema1.Table;
+package com.example.cinema1.domain;
 import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "билеты")
-public class Tickets {
-    private int id;
+public class Tickets extends BaseEntityId{
     private float price;
     private String status;
     private String place;
@@ -18,12 +17,6 @@ public class Tickets {
         this.place = place;
     }
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_билета")
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
 
     @Column(name = "Цена")
     public float getPrice() {
