@@ -1,5 +1,7 @@
 package com.example.cinema1.domain;
 
+import com.example.cinema1.relationships.Pass;
+import com.example.cinema1.relationships.Purchase;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Set;

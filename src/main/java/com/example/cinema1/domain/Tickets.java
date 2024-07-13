@@ -1,4 +1,5 @@
 package com.example.cinema1.domain;
+import com.example.cinema1.relationships.Purchase;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -16,6 +17,8 @@ public class Tickets extends BaseEntityId{
         this.status = status;
         this.place = place;
     }
+
+    protected Tickets() { }
 
 
     @Column(name = "Цена")

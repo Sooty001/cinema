@@ -10,8 +10,4 @@ import java.util.List;
 @Repository
 public interface TicketsRepository extends JpaRepository<Tickets, Integer> {
 
-
-    @Query(value = "select t from Tickets t where t.price > :price")
-    List<Tickets> findTicketsByPriceGreaterThan(float price);
-
 }

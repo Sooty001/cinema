@@ -1,4 +1,5 @@
 package com.example.cinema1.domain;
+import com.example.cinema1.relationships.Pass;
 import jakarta.persistence.*;
 import java.util.Set;
 

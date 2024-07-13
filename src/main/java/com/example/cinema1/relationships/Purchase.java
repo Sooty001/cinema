@@ -1,9 +1,13 @@
-package com.example.cinema1.domain;
+package com.example.cinema1.relationships;
+import com.example.cinema1.domain.BaseEntityId;
+import com.example.cinema1.domain.Sessions;
+import com.example.cinema1.domain.Tickets;
+import com.example.cinema1.domain.Users;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "покупка")
-public class Purchase extends BaseEntityId{
+public class Purchase extends BaseEntityId {
     private Users users;
     private Sessions sessions;
     private Tickets tickets;

@@ -1,9 +1,13 @@
-package com.example.cinema1.domain;
+package com.example.cinema1.relationships;
+import com.example.cinema1.domain.BaseEntityId;
+import com.example.cinema1.domain.Halls;
+import com.example.cinema1.domain.Movies;
+import com.example.cinema1.domain.Sessions;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "проходят")
-public class Pass extends BaseEntityId{
+public class Pass extends BaseEntityId {
     private Halls halls;
     private Movies movies;
     private Sessions sessions;
