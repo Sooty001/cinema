@@ -1,23 +1,74 @@
 package com.example.cinema1.services;
 
-import com.example.cinema1.domain.Users;
-import jakarta.transaction.Transactional;
+import com.example.cinema1.domain.Movies;
+import com.example.cinema1.domain.Sessions;
+import com.example.cinema1.relationships.Pass;
+import com.example.cinema1.relationships.Purchase;
+import com.example.cinema1.repositories.MoviesRepository;
+import com.example.cinema1.repositories.PurchaseRepository;
+import com.example.cinema1.repositories.SessionsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UsersService {
-    @PersistenceContext
-    private EntityManager entityManager;
 
-    @Transactional
-    public void saveAllUsers(List<Users> users) {
-        for (Users user : users) {
-            entityManager.persist(user);
+    private final PurchaseRepository purchaseRepository;
+    private final SessionsRepository sessionsRepository;
+    private final MoviesRepository moviesRepository;
+
+    @Autowired
+    public UsersService(PurchaseRepository purchaseRepository, SessionsRepository sessionsRepository, MoviesRepository moviesRepository) {
+        this.purchaseRepository = purchaseRepository;
+        this.sessionsRepository = sessionsRepository;
+        this.moviesRepository = moviesRepository;
+    }
+
+    public List<Movies> usersMovies(int userId) {
+        // Получение всех покупок пользователя
+        List<Purchase> purchases = purchaseRepository.findByUsersId(userId);
+
+
+        // Извлечение просмотренных сеансов и, следовательно, фильмов
+        Map<String, Integer> genreCount = new HashMap<>();
+        Set<Integer> watchedMovieIds = new HashSet<>();
+
+        for (Purchase purchase : purchases) {
+            List<Sessions> sessions = sessionsRepository.findSessionsByUserId(userId);
+            for (Sessions session : sessions) {
+                // Для каждого сеанса получаем фильмы через Pass (проходят)
+                for (Pass pass : session.getPass()) {
+                    Movies movie = pass.getMovies();
+                    watchedMovieIds.add(movie.getId());
+                    String genre = movie.getGenre();
+                    genreCount.put(genre, genreCount.getOrDefault(genre, 0) + 1);
+                }
+            }
         }
+
+        // Сортировка жанров по количеству просмотров
+        List<String> preferredGenres = genreCount.entrySet().stream()
+                .sorted((entry1, entry2) -> entry2.getValue() - entry1.getValue())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        // Получение рекомендаций
+        List<Movies> recommendations = new ArrayList<>();
+        for (String genre : preferredGenres) {
+            List<Movies> movies = moviesRepository.findByGenreAndNotWatchedByUser(genre, userId);
+            for (Movies movie : movies) {
+                if (!watchedMovieIds.contains(movie.getId())) {
+                    recommendations.add(movie);
+                }
+            }
+            if (!recommendations.isEmpty()) {
+                break;
+            }
+        }
+
+        return recommendations;
     }
 }
-

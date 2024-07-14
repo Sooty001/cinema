@@ -1,5 +1,6 @@
 package com.example.cinema1.domain;
 import com.example.cinema1.relationships.Pass;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -87,6 +88,7 @@ public class Movies extends BaseEntityId{
 
     @OneToMany(mappedBy = "movies", targetEntity = Pass.class,
             fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     public Set<Pass> getPass() { return pass; }
     public void setPass(Set<Pass> pass) { this.pass = pass; }
 }

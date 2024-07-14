@@ -3,6 +3,7 @@ import com.example.cinema1.domain.BaseEntityId;
 import com.example.cinema1.domain.Sessions;
 import com.example.cinema1.domain.Tickets;
 import com.example.cinema1.domain.Users;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -26,6 +27,7 @@ public class Purchase extends BaseEntityId {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_пользователя", referencedColumnName = "id")
+    @JsonIgnore
     public Users getUsers() {
         return users;
     }
@@ -35,6 +37,7 @@ public class Purchase extends BaseEntityId {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_сеанса", referencedColumnName = "id")
+    @JsonIgnore
     public Sessions getSessions() {
         return sessions;
     }
@@ -45,6 +48,7 @@ public class Purchase extends BaseEntityId {
 
     @OneToOne
     @JoinColumn(name = "id_билета")
+    @JsonIgnore
     public Tickets getTickets() {
         return tickets;
     }

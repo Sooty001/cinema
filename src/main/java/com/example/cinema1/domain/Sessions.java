@@ -2,6 +2,7 @@ package com.example.cinema1.domain;
 
 import com.example.cinema1.relationships.Pass;
 import com.example.cinema1.relationships.Purchase;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -37,11 +38,13 @@ public class Sessions extends BaseEntityId{
 
     @OneToMany(mappedBy = "sessions", targetEntity = Pass.class,
             fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     public Set<Pass> getPass() { return pass; }
     public void setPass(Set<Pass> pass) { this.pass = pass; }
 
     @OneToMany(mappedBy = "sessions", targetEntity = Purchase.class,
             fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     public Set<Purchase> getPurchase() { return purchase; }
     public void setPurchase(Set<Purchase> purchase) { this.purchase = purchase; }
 }

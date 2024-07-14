@@ -1,5 +1,6 @@
 package com.example.cinema1.domain;
 import com.example.cinema1.relationships.Purchase;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -47,6 +48,7 @@ public class Tickets extends BaseEntityId{
 
 
     @OneToOne(mappedBy = "tickets", cascade = CascadeType.ALL)
+    @JsonIgnore
     public Purchase getPurchase() {
         return purchase;
     }
