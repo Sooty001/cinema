@@ -19,6 +19,10 @@ public class Purchase extends BaseEntityId {
         this.tickets = tickets;
     }
 
+    public Purchase() {
+
+    }
+
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_пользователя", referencedColumnName = "id")
@@ -38,13 +42,15 @@ public class Purchase extends BaseEntityId {
         this.sessions = sessions;
     }
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_билета", referencedColumnName = "id")
+
+    @OneToOne
+    @JoinColumn(name = "id_билета")
     public Tickets getTickets() {
         return tickets;
     }
     public void setTickets(Tickets tickets) {
         this.tickets = tickets;
     }
+
 }
 

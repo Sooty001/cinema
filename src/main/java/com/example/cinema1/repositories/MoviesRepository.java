@@ -10,15 +10,5 @@ import java.util.List;
 @Repository
 public interface MoviesRepository extends JpaRepository<Movies, Integer> {
 
-    List<Movies> findAllByGenre(String genre);
-
-    List<Movies> findAllByRatingGreaterThan(float rating);
-
-
-    @Query(value = "select m from Movies m where m.rating > :rating")
-    List<Movies> findMoviesByRatingGreaterThan(float rating);
-
-
-    @Query(value = "select m from Movies m where m.genre = :genre and m.releaseYear = :releaseYear")
-    List<Movies> findMoviesByGenreAndReleaseYear(String genre, int releaseYear);
+    List<Movies> findByGenreAndNotWatchedByUser(String genre, int userId);
 }

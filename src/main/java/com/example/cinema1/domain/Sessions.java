@@ -20,8 +20,10 @@ public class Sessions extends BaseEntityId{
         this.date = date;
     }
 
+    public Sessions() { }
 
-    @Column(name = "Время начала")
+
+    @Column(name = "Время_начала")
     public String getStart_time() { return start_time; }
     public void setStart_time(String start_time) {
         this.start_time = start_time;

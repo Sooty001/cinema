@@ -18,8 +18,12 @@ public class Halls extends BaseEntityId{
         this.hallNumber = hallNumber;
     }
 
+    public Halls() {
 
-    @Column(name = "Количество мест")
+    }
+
+
+    @Column(name = "Количество_мест")
     public int getSeats() {
         return seats;
     }
@@ -27,7 +31,7 @@ public class Halls extends BaseEntityId{
         this.seats = seats;
     }
 
-    @Column(name = "Тип зала")
+    @Column(name = "Тип_зала")
     public String getType() {
         return type;
     }
@@ -35,7 +39,7 @@ public class Halls extends BaseEntityId{
         this.type = type;
     }
 
-    @Column(name = "Номер зала")
+    @Column(name = "Номер_зала")
     public int getHallNumber() {
         return hallNumber;
     }

@@ -19,6 +19,10 @@ public class Pass extends BaseEntityId {
         this.halls = halls;
     }
 
+    public Pass() {
+
+    }
+
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_зала", referencedColumnName = "id")

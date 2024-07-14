@@ -9,7 +9,7 @@ public class Tickets extends BaseEntityId{
     private float price;
     private String status;
     private String place;
-    private Set<Purchase> purchase;
+    private Purchase purchase;
 
 
     public Tickets(float price, String status, String place){
@@ -18,7 +18,7 @@ public class Tickets extends BaseEntityId{
         this.place = place;
     }
 
-    protected Tickets() { }
+    public Tickets() { }
 
 
     @Column(name = "Цена")
@@ -45,8 +45,12 @@ public class Tickets extends BaseEntityId{
         this.place = place;
     }
 
-    @OneToMany(mappedBy = "tickets", targetEntity = Purchase.class,
-            fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public Set<Purchase> getPurchase() { return purchase; }
-    public void setPurchase(Set<Purchase> purchase) { this.purchase = purchase; }
+
+    @OneToOne(mappedBy = "tickets", cascade = CascadeType.ALL)
+    public Purchase getPurchase() {
+        return purchase;
+    }
+    public void setPurchase(Purchase purchase) {
+        this.purchase = purchase;
+    }
 }

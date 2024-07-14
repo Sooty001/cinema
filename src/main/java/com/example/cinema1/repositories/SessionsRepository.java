@@ -12,11 +12,4 @@ import java.util.List;
 public interface SessionsRepository extends JpaRepository<Sessions, Integer> {
 
 
-    @Query(value = "select s from Sessions s where s.start_time > :startTime")
-    List<Sessions> findSessionsByStartTimeAfter(String startTime);
-
-
-
-    @Query(value = "select s from Sessions s where s.date = :date and s.start_time > :startTime")
-    List<Sessions> findSessionsByDateAndStartTimeAfter(Date date, String startTime);
 }

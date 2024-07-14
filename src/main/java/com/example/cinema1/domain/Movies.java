@@ -26,6 +26,8 @@ public class Movies extends BaseEntityId{
         this.ageLimit = ageLimit;
     }
 
+    public Movies() { }
+
 
     @Column(name = "Название")
     public String getTitle() {
@@ -35,7 +37,7 @@ public class Movies extends BaseEntityId{
         this.title = title;
     }
 
-    @Column(name = "Год выпуска")
+    @Column(name = "Год_выпуска")
     public int getReleaseYear() {
         return releaseYear;
     }
@@ -75,7 +77,7 @@ public class Movies extends BaseEntityId{
         this.rating = rating;
     }
 
-    @Column(name = "Возрастное ограничение")
+    @Column(name = "Возрастное_ограничение")
     public int getAgeLimit() {
         return ageLimit;
     }

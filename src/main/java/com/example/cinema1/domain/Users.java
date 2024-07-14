@@ -24,6 +24,8 @@ public class Users extends BaseEntityId{
         this.age = age;
     }
 
+    public Users() { }
+
 
     @Column(name = "Имя")
     public String getFirst_name() { return firstName; }
