@@ -39,11 +39,4 @@ public class TicketsService {
 //        return query.getResultList();
 //    }
 
-
-    @Transactional
-    public void saveAllTickets(List<Tickets> tickets) {
-        for (Tickets ticket : tickets) {
-            entityManager.persist(ticket);
-        }
-    }
 }

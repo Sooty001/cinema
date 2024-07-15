@@ -28,18 +28,18 @@ public class UsersService {
     }
 
     public List<Movies> usersMovies(int userId) {
-        // Получение всех покупок пользователя
+
         List<Purchase> purchases = purchaseRepository.findByUsersId(userId);
 
 
-        // Извлечение просмотренных сеансов и, следовательно, фильмов
+
         Map<String, Integer> genreCount = new HashMap<>();
         Set<Integer> watchedMovieIds = new HashSet<>();
 
         for (Purchase purchase : purchases) {
             List<Sessions> sessions = sessionsRepository.findSessionsByUserId(userId);
             for (Sessions session : sessions) {
-                // Для каждого сеанса получаем фильмы через Pass (проходят)
+
                 for (Pass pass : session.getPass()) {
                     Movies movie = pass.getMovies();
                     watchedMovieIds.add(movie.getId());
@@ -49,13 +49,13 @@ public class UsersService {
             }
         }
 
-        // Сортировка жанров по количеству просмотров
+
         List<String> preferredGenres = genreCount.entrySet().stream()
                 .sorted((entry1, entry2) -> entry2.getValue() - entry1.getValue())
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
 
-        // Получение рекомендаций
+
         List<Movies> recommendations = new ArrayList<>();
         for (String genre : preferredGenres) {
             List<Movies> movies = moviesRepository.findByGenreAndNotWatchedByUser(genre, userId);
