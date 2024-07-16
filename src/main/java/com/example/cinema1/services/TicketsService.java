@@ -33,19 +33,24 @@ public class TicketsService {
     }
 
     @Transactional
-    public void adjustTicketPrices(int sessionId) {
-        Long soldTickets = ticketsRepository.countSoldTicketsBySessionId(sessionId);
+    public String adjustTicketPricesForAllSessions() {
+        List<Integer> sessionIds = ticketsRepository.findAllSessionIds();
 
-        Integer totalSeats = hallsRepository.findHallSeatsBySessionId(sessionId);
+        for (int sessionId : sessionIds) {
+            Long soldTickets = ticketsRepository.countSoldTicketsBySessionId(sessionId);
+            Integer totalSeats = hallsRepository.findHallSeatsBySessionId(sessionId);
 
-        if (soldTickets > totalSeats / 2) {
-            List<Tickets> availableTickets = ticketsRepository.findAvailableTicketsBySessionId(sessionId);
+            if (soldTickets > totalSeats / 2) {
+                List<Tickets> availableTickets = ticketsRepository.findAvailableTicketsBySessionId(sessionId);
 
-            for (Tickets ticket : availableTickets) {
-                ticket.setPrice(ticket.getPrice() + 5);
-                ticketsRepository.save(ticket);
+                for (Tickets ticket : availableTickets) {
+                    ticket.setPrice(ticket.getPrice() + 5);
+                    ticketsRepository.save(ticket);
+                }
+                return "Успешно.";
             }
         }
+        return "Таких сансов нету.";
     }
 
 
@@ -63,18 +68,20 @@ public class TicketsService {
     }
 
     @Transactional
-    public void reserveTicket(int ticketId) {
+    public String reserveTicket(int ticketId) {
         validateReservations();
         Tickets ticket = ticketsRepository.findAvailableTicketById(ticketId);
-        if (ticket != null) {
+        if (ticket != null && "в наличии".equals(ticket.getStatus())) {
             ticket.setStatus("зарезервирован");
             ticket.setChoice(LocalTime.now());
             ticketsRepository.save(ticket);
+            return "Билет зарезервирован.";
         }
+        return "Билет уже куплен или зарезервирован.";
     }
 
     @Transactional
-    public void purchaseTicket(int ticketId, int userId) {
+    public String purchaseTicket(int ticketId, int userId) {
         validateReservations();
         Tickets ticket = ticketsRepository.findById(ticketId).orElse(null);
         Users user = usersRepository.findById(userId).orElse(null);
@@ -83,6 +90,8 @@ public class TicketsService {
             purchase.setUsers(user);
             ticket.setStatus("продан");
             ticketsRepository.save(ticket);
+            return "Билет успешно куплен.";
         }
+        return "Билет недоступен или время ожидания истекло.";
     }
 }

@@ -20,22 +20,22 @@ public class TicketsController {
         this.ticketsService = ticketsService;
     }
 
-    @PostMapping("/adjust-prices/{sessionId}")
-    public ResponseEntity<Void> adjustTicketPrices(@PathVariable int sessionId) {
-        ticketsService.adjustTicketPrices(sessionId);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PostMapping("/adjust-prices")
+    public ResponseEntity<String> adjustTicketPricesForAllSessions() {
+        String message = ticketsService.adjustTicketPricesForAllSessions();
+        return ResponseEntity.ok(message);
     }
 
 
     @PostMapping("/reserve/{ticketId}")
-    public ResponseEntity<Void> reserveTicket(@PathVariable int ticketId) {
-        ticketsService.reserveTicket(ticketId);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> reserveTicket(@PathVariable int ticketId) {
+        String message = ticketsService.reserveTicket(ticketId);
+        return ResponseEntity.ok(message);
     }
 
     @PostMapping("/purchase/{ticketId}/user/{userId}")
-    public ResponseEntity<Void> purchaseTicket(@PathVariable int ticketId, @PathVariable int userId) {
-        ticketsService.purchaseTicket(ticketId, userId);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> purchaseTicket(@PathVariable int ticketId, @PathVariable int userId) {
+        String message = ticketsService.purchaseTicket(ticketId, userId);
+        return ResponseEntity.ok(message);
     }
 }

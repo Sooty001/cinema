@@ -23,6 +23,10 @@ public interface TicketsRepository extends JpaRepository<Tickets, Integer> {
     @Query("SELECT t FROM Tickets t WHERE t.purchase.sessions.id = :sessionId AND t.status = 'в наличии'")
     List<Tickets> findAvailableTicketsBySessionId(@Param("sessionId") int sessionId);
 
+    @Query("SELECT DISTINCT t.purchase.sessions.id FROM Tickets t")
+    List<Integer> findAllSessionIds();
+
+
 
 
     @Query("SELECT t FROM Tickets t WHERE t.status = 'зарезервирован'")
