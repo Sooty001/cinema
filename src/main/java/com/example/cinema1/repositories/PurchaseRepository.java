@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface PurchaseRepository extends JpaRepository<Purchase, Integer> {
 
-    // Получение всех покупок пользователя по его ID
     List<Purchase> findByUsersId(int userId);
+
+    Purchase findByTicketsId(int ticketsId);
 }

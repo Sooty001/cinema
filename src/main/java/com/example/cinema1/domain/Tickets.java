@@ -2,7 +2,10 @@ package com.example.cinema1.domain;
 import com.example.cinema1.relationships.Purchase;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.time.LocalTime;
 import java.util.Set;
+import java.util.TimeZone;
 
 @Entity
 @Table(name = "билеты")
@@ -10,6 +13,7 @@ public class Tickets extends BaseEntityId{
     private float price;
     private String status;
     private String place;
+    private LocalTime choice;
     private Purchase purchase;
 
 
@@ -44,6 +48,14 @@ public class Tickets extends BaseEntityId{
     }
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    @Column(name = "Выбор")
+    public LocalTime getChoice() {
+        return choice;
+    }
+    public void setChoice(LocalTime choice) {
+        this.choice = choice;
     }
 
 
