@@ -54,7 +54,7 @@ public class TicketsService {
         LocalTime now = LocalTime.now();
 
         for (Tickets ticket : reservedTickets) {
-            if (ChronoUnit.MINUTES.between(ticket.getChoice(), now) > 1) {
+            if (ChronoUnit.MINUTES.between(ticket.getChoice(), now) > 15) {
                 ticket.setStatus("в наличии");
                 ticketsRepository.save(ticket);
             }
