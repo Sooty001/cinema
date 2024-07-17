@@ -12,5 +12,5 @@ public interface TicketsRepository {
     List<Tickets> findReservedTickets();
     Tickets findAvailableTicketById(int ticketId);
     Optional<Tickets> findById(Integer ticketId);
-    void save(Tickets ticket); // Добавлен метод save
+    void save(Tickets ticket);
 }

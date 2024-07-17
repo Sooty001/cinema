@@ -3,7 +3,6 @@ import com.example.cinema1.domain.BaseEntityId;
 import com.example.cinema1.domain.Sessions;
 import com.example.cinema1.domain.Tickets;
 import com.example.cinema1.domain.Users;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity

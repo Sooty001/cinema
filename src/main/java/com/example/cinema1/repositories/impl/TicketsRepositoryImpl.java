@@ -74,7 +74,7 @@ public class TicketsRepositoryImpl extends BaseRepository<Tickets, Integer> impl
     }
 
     @Override
-    public void save(Tickets ticket) { // Метод save
+    public void save(Tickets ticket) {
         if (entityManager.contains(ticket)) {
             entityManager.merge(ticket);
         } else {

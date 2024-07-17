@@ -1,6 +1,5 @@
 package com.example.cinema1.domain;
 import com.example.cinema1.relationships.Pass;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Set;
 

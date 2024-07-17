@@ -77,7 +77,7 @@ public class TicketsService {
     @Transactional
     public String purchaseTicket(int ticketId, int userId) {
         validateReservations();
-        Tickets ticket = ticketsRepository.findById(ticketId).orElse(null); // Теперь метод findById будет найден
+        Tickets ticket = ticketsRepository.findById(ticketId).orElse(null);
         Users user = usersRepository.findById(userId).orElse(null);
         if (ticket != null && "зарезервирован".equals(ticket.getStatus())) {
             Purchase purchase = purchaseRepository.findByTicketsId(ticketId);

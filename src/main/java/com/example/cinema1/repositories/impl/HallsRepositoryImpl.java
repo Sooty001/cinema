@@ -27,6 +27,4 @@ public class HallsRepositoryImpl extends BaseRepository<Halls, Integer> implemen
             return null;
         }
     }
-
-    // Реализуйте другие необходимые методы
 }

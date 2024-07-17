@@ -18,7 +18,6 @@ public class UsersController {
         this.usersService = usersService;
     }
 
-    // Метод для получения рекомендаций фильмов для пользователя
     @GetMapping("/rec/{userId}")
     public List<MoviesDto> getUsersMovies(@PathVariable("userId") int userId) {
         return usersService.usersMovies(userId);
