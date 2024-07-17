@@ -53,7 +53,7 @@ public class Users extends BaseEntityId{
 
     @OneToMany(mappedBy = "users", targetEntity = Purchase.class,
             fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
+
     public Set<Purchase> getPurchase() { return purchase; }
     public void setPurchase(Set<Purchase> purchase) { this.purchase = purchase; }
 }

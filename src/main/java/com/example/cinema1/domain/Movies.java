@@ -88,7 +88,7 @@ public class Movies extends BaseEntityId{
 
     @OneToMany(mappedBy = "movies", targetEntity = Pass.class,
             fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
+
     public Set<Pass> getPass() { return pass; }
     public void setPass(Set<Pass> pass) { this.pass = pass; }
 }

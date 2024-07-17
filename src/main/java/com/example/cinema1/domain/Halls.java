@@ -50,7 +50,6 @@ public class Halls extends BaseEntityId{
 
     @OneToMany(mappedBy = "halls", targetEntity = Pass.class,
             fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
     public Set<Pass> getPass() { return pass; }
     public void setPass(Set<Pass> pass) { this.pass = pass; }
 }

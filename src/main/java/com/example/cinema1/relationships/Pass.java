@@ -27,7 +27,6 @@ public class Pass extends BaseEntityId {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_зала", referencedColumnName = "id")
-    @JsonIgnore
     public Halls getHalls() {
         return halls;
     }
@@ -37,7 +36,6 @@ public class Pass extends BaseEntityId {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_фильма", referencedColumnName = "id")
-    @JsonIgnore
     public Movies getMovies() {
         return movies;
     }
@@ -47,7 +45,6 @@ public class Pass extends BaseEntityId {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_сеанса", referencedColumnName = "id")
-    @JsonIgnore
     public Sessions getSessions() {
         return sessions;
     }

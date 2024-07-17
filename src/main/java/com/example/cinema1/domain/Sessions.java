@@ -38,13 +38,13 @@ public class Sessions extends BaseEntityId{
 
     @OneToMany(mappedBy = "sessions", targetEntity = Pass.class,
             fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
+
     public Set<Pass> getPass() { return pass; }
     public void setPass(Set<Pass> pass) { this.pass = pass; }
 
     @OneToMany(mappedBy = "sessions", targetEntity = Purchase.class,
             fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
+
     public Set<Purchase> getPurchase() { return purchase; }
     public void setPurchase(Set<Purchase> purchase) { this.purchase = purchase; }
 }

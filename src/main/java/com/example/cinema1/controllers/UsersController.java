@@ -1,6 +1,6 @@
 package com.example.cinema1.controllers;
 
-import com.example.cinema1.domain.Movies;
+import com.example.cinema1.Dto.MoviesDto;
 import com.example.cinema1.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class UsersController {
 
     // Метод для получения рекомендаций фильмов для пользователя
     @GetMapping("/rec/{userId}")
-    public List<Movies> getUsersMovies(@PathVariable("userId") int userId) {
+    public List<MoviesDto> getUsersMovies(@PathVariable("userId") int userId) {
         return usersService.usersMovies(userId);
     }
 }

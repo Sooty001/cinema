@@ -60,7 +60,7 @@ public class Tickets extends BaseEntityId{
 
 
     @OneToOne(mappedBy = "tickets", cascade = CascadeType.ALL)
-    @JsonIgnore
+
     public Purchase getPurchase() {
         return purchase;
     }

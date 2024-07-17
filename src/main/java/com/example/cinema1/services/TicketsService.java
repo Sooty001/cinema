@@ -7,9 +7,6 @@ import com.example.cinema1.repositories.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -17,8 +14,6 @@ import java.util.List;
 @Service
 public class TicketsService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
     private final TicketsRepository ticketsRepository;
     private final PurchaseRepository purchaseRepository;
     private final UsersRepository usersRepository;
@@ -53,7 +48,6 @@ public class TicketsService {
         return "Таких сансов нету.";
     }
 
-
     @Transactional
     public void validateReservations() {
         List<Tickets> reservedTickets = ticketsRepository.findReservedTickets();
@@ -75,7 +69,7 @@ public class TicketsService {
             ticket.setStatus("зарезервирован");
             ticket.setChoice(LocalTime.now());
             ticketsRepository.save(ticket);
-            return "Билет зарезервирован.";
+            return "Билет успешно зарезервирован.";
         }
         return "Билет уже куплен или зарезервирован.";
     }
@@ -83,7 +77,7 @@ public class TicketsService {
     @Transactional
     public String purchaseTicket(int ticketId, int userId) {
         validateReservations();
-        Tickets ticket = ticketsRepository.findById(ticketId).orElse(null);
+        Tickets ticket = ticketsRepository.findById(ticketId).orElse(null); // Теперь метод findById будет найден
         Users user = usersRepository.findById(userId).orElse(null);
         if (ticket != null && "зарезервирован".equals(ticket.getStatus())) {
             Purchase purchase = purchaseRepository.findByTicketsId(ticketId);
