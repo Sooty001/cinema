@@ -1,4 +1,4 @@
-package com.example.cinema1.Dto;
+package com.example.cinema1.dto;
 
 import lombok.Getter;
 import lombok.Setter;

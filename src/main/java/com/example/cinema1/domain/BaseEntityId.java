@@ -1,6 +1,8 @@
 package com.example.cinema1.domain;
 import jakarta.persistence.*;
+import lombok.Setter;
 
+@Setter
 @MappedSuperclass
 public abstract class BaseEntityId {
     private int id;
@@ -11,7 +13,4 @@ public abstract class BaseEntityId {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }

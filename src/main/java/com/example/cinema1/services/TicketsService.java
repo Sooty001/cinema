@@ -2,7 +2,8 @@ package com.example.cinema1.services;
 
 import com.example.cinema1.domain.Tickets;
 import com.example.cinema1.domain.Users;
-import com.example.cinema1.relationships.Purchase;
+import com.example.cinema1.domain.Purchase;
+import com.example.cinema1.exceptions.*;
 import com.example.cinema1.repositories.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,10 @@ public class TicketsService {
         List<Integer> sessionIds = ticketsRepository.findAllSessionIds();
 
         for (int sessionId : sessionIds) {
-            Long soldTickets = ticketsRepository.countSoldTicketsBySessionId(sessionId);
+            Integer soldTickets = ticketsRepository.countSoldTicketsBySessionId(sessionId);
             Integer totalSeats = hallsRepository.findHallSeatsBySessionId(sessionId);
 
-            if (soldTickets > totalSeats / 2) {
+            if (soldTickets > totalSeats / 2 && !totalSeats.equals(soldTickets)) {
                 List<Tickets> availableTickets = ticketsRepository.findAvailableTicketsBySessionId(sessionId);
 
                 for (Tickets ticket : availableTickets) {
@@ -48,13 +49,13 @@ public class TicketsService {
         return "Таких сансов нету.";
     }
 
-    @Transactional
+
     public void validateReservations() {
         List<Tickets> reservedTickets = ticketsRepository.findReservedTickets();
         LocalTime now = LocalTime.now();
 
         for (Tickets ticket : reservedTickets) {
-            if (ChronoUnit.MINUTES.between(ticket.getChoice(), now) > 15) {
+            if (ChronoUnit.MINUTES.between(ticket.getChoice(), now) > 1) {
                 ticket.setStatus("в наличии");
                 ticketsRepository.save(ticket);
             }
@@ -65,27 +66,29 @@ public class TicketsService {
     public String reserveTicket(int ticketId) {
         validateReservations();
         Tickets ticket = ticketsRepository.findAvailableTicketById(ticketId);
-        if (ticket != null && "в наличии".equals(ticket.getStatus())) {
+        if (ticket != null) {
             ticket.setStatus("зарезервирован");
             ticket.setChoice(LocalTime.now());
             ticketsRepository.save(ticket);
             return "Билет успешно зарезервирован.";
         }
-        return "Билет уже куплен или зарезервирован.";
+        throw new TicketAlreadyReservedOrSoldException(ticketId);
     }
 
     @Transactional
     public String purchaseTicket(int ticketId, int userId) {
         validateReservations();
-        Tickets ticket = ticketsRepository.findById(ticketId).orElse(null);
-        Users user = usersRepository.findById(userId).orElse(null);
-        if (ticket != null && "зарезервирован".equals(ticket.getStatus())) {
-            Purchase purchase = purchaseRepository.findByTicketsId(ticketId);
-            purchase.setUsers(user);
-            ticket.setStatus("продан");
-            ticketsRepository.save(ticket);
-            return "Билет успешно куплен.";
+        Tickets ticket = ticketsRepository.findById(ticketId).orElseThrow(() -> new TicketNotFoundException(ticketId));
+        Users user = usersRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+
+        if (!"зарезервирован".equals(ticket.getStatus())) {
+            throw new TicketUnavailableException(ticketId);
         }
-        return "Билет недоступен или время ожидания истекло.";
+
+        Purchase purchase = purchaseRepository.findByTicketsId(ticketId);
+        purchase.setUsers(user);
+        ticket.setStatus("продан");
+        ticketsRepository.save(ticket);
+        return "Билет успешно куплен.";
     }
 }

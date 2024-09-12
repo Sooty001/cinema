@@ -1,17 +1,13 @@
-package com.example.cinema1.relationships;
-import com.example.cinema1.domain.BaseEntityId;
-import com.example.cinema1.domain.Sessions;
-import com.example.cinema1.domain.Tickets;
-import com.example.cinema1.domain.Users;
+package com.example.cinema1.domain;
+
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "покупка")
+@Table(name = "purchase")
 public class Purchase extends BaseEntityId {
     private Users users;
     private Sessions sessions;
     private Tickets tickets;
-
 
     public Purchase(Users users, Sessions sessions, Tickets tickets){
         this.users = users;
@@ -19,13 +15,12 @@ public class Purchase extends BaseEntityId {
         this.tickets = tickets;
     }
 
-    public Purchase() {
+    protected Purchase() {
 
     }
 
-
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_пользователя", referencedColumnName = "id")
+    @JoinColumn(name = "id_user", referencedColumnName = "id")
     public Users getUsers() {
         return users;
     }
@@ -34,7 +29,7 @@ public class Purchase extends BaseEntityId {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_сеанса", referencedColumnName = "id")
+    @JoinColumn(name = "id_session", referencedColumnName = "id")
     public Sessions getSessions() {
         return sessions;
     }
@@ -42,9 +37,8 @@ public class Purchase extends BaseEntityId {
         this.sessions = sessions;
     }
 
-
     @OneToOne
-    @JoinColumn(name = "id_билета")
+    @JoinColumn(name = "id_ticket")
     public Tickets getTickets() {
         return tickets;
     }

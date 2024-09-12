@@ -1,12 +1,12 @@
-package com.example.cinema1.relationships;
-import com.example.cinema1.domain.BaseEntityId;
-import com.example.cinema1.domain.Halls;
-import com.example.cinema1.domain.Movies;
-import com.example.cinema1.domain.Sessions;
-import jakarta.persistence.*;
+package com.example.cinema1.domain;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "проходят")
+@Table(name = "pass")
 public class Pass extends BaseEntityId {
     private Halls halls;
     private Movies movies;
@@ -19,13 +19,13 @@ public class Pass extends BaseEntityId {
         this.halls = halls;
     }
 
-    public Pass() {
+    protected Pass() {
 
     }
 
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_зала", referencedColumnName = "id")
+    @JoinColumn(name = "id_hall", referencedColumnName = "id")
     public Halls getHalls() {
         return halls;
     }
@@ -34,7 +34,7 @@ public class Pass extends BaseEntityId {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_фильма", referencedColumnName = "id")
+    @JoinColumn(name = "id_film", referencedColumnName = "id")
     public Movies getMovies() {
         return movies;
     }
@@ -43,7 +43,7 @@ public class Pass extends BaseEntityId {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_сеанса", referencedColumnName = "id")
+    @JoinColumn(name = "id_session", referencedColumnName = "id")
     public Sessions getSessions() {
         return sessions;
     }

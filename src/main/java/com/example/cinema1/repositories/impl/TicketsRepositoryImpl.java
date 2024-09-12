@@ -1,37 +1,27 @@
 package com.example.cinema1.repositories.impl;
 
 import com.example.cinema1.domain.Tickets;
-import com.example.cinema1.repositories.BaseRepository;
 import com.example.cinema1.repositories.TicketsRepository;
-import org.springframework.stereotype.Repository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-
+import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class TicketsRepositoryImpl extends BaseRepository<Tickets, Integer> implements TicketsRepository {
+public class TicketsRepositoryImpl implements TicketsRepository {
 
-    public TicketsRepositoryImpl() {
-        super(Tickets.class);
-    }
-
-    @Override
-    public List<Tickets> findTicketsBySessionId(int sessionId) {
-        TypedQuery<Tickets> query = entityManager.createQuery(
-                "SELECT t FROM Tickets t WHERE t.purchase.sessions.id = :sessionId",
-                Tickets.class);
-        query.setParameter("sessionId", sessionId);
-        return query.getResultList();
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
-    public Long countSoldTicketsBySessionId(int sessionId) {
+    public Integer countSoldTicketsBySessionId(int sessionId) {
         TypedQuery<Long> query = entityManager.createQuery(
                 "SELECT COUNT(t) FROM Tickets t WHERE t.purchase.sessions.id = :sessionId AND t.status = 'продан'",
                 Long.class);
         query.setParameter("sessionId", sessionId);
-        return query.getSingleResult();
+        return query.getSingleResult().intValue();
     }
 
     @Override
@@ -65,7 +55,8 @@ public class TicketsRepositoryImpl extends BaseRepository<Tickets, Integer> impl
                 "SELECT t FROM Tickets t WHERE t.id = :ticketId AND t.status = 'в наличии'",
                 Tickets.class);
         query.setParameter("ticketId", ticketId);
-        return query.getSingleResult();
+        List<Tickets> results = query.getResultList();
+        return results.isEmpty() ? null : results.get(0);
     }
 
     @Override

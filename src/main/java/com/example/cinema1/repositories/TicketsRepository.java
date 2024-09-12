@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TicketsRepository {
-    List<Tickets> findTicketsBySessionId(int sessionId);
-    Long countSoldTicketsBySessionId(int sessionId);
+    Integer countSoldTicketsBySessionId(int sessionId);
     List<Tickets> findAvailableTicketsBySessionId(int sessionId);
     List<Integer> findAllSessionIds();
     List<Tickets> findReservedTickets();

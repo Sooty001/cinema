@@ -1,17 +1,17 @@
 package com.example.cinema1.repositories.impl;
 
 import com.example.cinema1.domain.Users;
-import com.example.cinema1.repositories.BaseRepository;
 import com.example.cinema1.repositories.UsersRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public class UsersRepositoryImpl extends BaseRepository<Users, Integer> implements UsersRepository {
+public class UsersRepositoryImpl implements UsersRepository {
 
-    public UsersRepositoryImpl() {
-        super(Users.class);
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Optional<Users> findById(int userId) {

@@ -1,14 +1,10 @@
 package com.example.cinema1.domain;
-import com.example.cinema1.relationships.Purchase;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
 import java.time.LocalTime;
-import java.util.Set;
-import java.util.TimeZone;
 
 @Entity
-@Table(name = "билеты")
+@Table(name = "tickets")
 public class Tickets extends BaseEntityId{
     private float price;
     private String status;
@@ -23,10 +19,9 @@ public class Tickets extends BaseEntityId{
         this.place = place;
     }
 
-    public Tickets() { }
+    protected Tickets() { }
 
 
-    @Column(name = "Цена")
     public float getPrice() {
         return price;
     }
@@ -34,7 +29,6 @@ public class Tickets extends BaseEntityId{
         this.price = price;
     }
 
-    @Column(name = "Статус")
     public String getStatus() {
         return status;
     }
@@ -42,7 +36,6 @@ public class Tickets extends BaseEntityId{
         this.status = status;
     }
 
-    @Column(name = "Место")
     public String getPlace() {
         return place;
     }
@@ -50,7 +43,6 @@ public class Tickets extends BaseEntityId{
         this.place = place;
     }
 
-    @Column(name = "Выбор")
     public LocalTime getChoice() {
         return choice;
     }
@@ -60,7 +52,6 @@ public class Tickets extends BaseEntityId{
 
 
     @OneToOne(mappedBy = "tickets", cascade = CascadeType.ALL)
-
     public Purchase getPurchase() {
         return purchase;
     }
