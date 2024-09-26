@@ -7,9 +7,8 @@ import java.util.Optional;
 public interface TicketsRepository {
     Integer countSoldTicketsBySessionId(int sessionId);
     List<Tickets> findAvailableTicketsBySessionId(int sessionId);
-    List<Integer> findAllSessionIds();
     List<Tickets> findReservedTickets();
     Tickets findAvailableTicketById(int ticketId);
     Optional<Tickets> findById(Integer ticketId);
-    void save(Tickets ticket);
+    void update(Tickets ticket);
 }

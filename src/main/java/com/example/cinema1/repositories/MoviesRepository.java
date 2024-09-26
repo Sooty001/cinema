@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface MoviesRepository {
     List<Movies> findByGenreAndNotWatchedByUser(String genre, int userId);
+    List<Movies> findSessionsByUserId(int userId);
 }
