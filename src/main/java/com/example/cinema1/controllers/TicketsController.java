@@ -1,19 +1,18 @@
 package com.example.cinema1.controllers;
 
-import com.example.cinema1.services.TicketsService;
+import com.example.cinema1.services.impl.TicketsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 @RestController
 @RequestMapping("/tickets")
 public class TicketsController {
 
-    private final TicketsService ticketsService;
+    private final TicketsServiceImpl ticketsService;
 
     @Autowired
-    public TicketsController(TicketsService ticketsService) {
+    public TicketsController(TicketsServiceImpl ticketsService) {
         this.ticketsService = ticketsService;
     }
 
