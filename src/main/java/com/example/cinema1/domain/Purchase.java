@@ -16,7 +16,6 @@ public class Purchase extends BaseEntityId {
     }
 
     protected Purchase() {
-
     }
 
     @ManyToOne(optional = false)

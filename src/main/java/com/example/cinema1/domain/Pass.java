@@ -12,7 +12,6 @@ public class Pass extends BaseEntityId {
     private Movies movies;
     private Sessions sessions;
 
-
     public Pass(Movies movies, Sessions sessions, Halls halls){
         this.movies = movies;
         this.sessions = sessions;
@@ -20,9 +19,7 @@ public class Pass extends BaseEntityId {
     }
 
     protected Pass() {
-
     }
-
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_hall", referencedColumnName = "id")
@@ -34,7 +31,7 @@ public class Pass extends BaseEntityId {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_film", referencedColumnName = "id")
+    @JoinColumn(name = "id_movies", referencedColumnName = "id")
     public Movies getMovies() {
         return movies;
     }

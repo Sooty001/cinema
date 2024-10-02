@@ -12,7 +12,6 @@ public class Tickets extends BaseEntityId{
     private LocalTime choice;
     private Purchase purchase;
 
-
     public Tickets(float price, String status, String place){
         this.price = price;
         this.status = status;
@@ -21,7 +20,7 @@ public class Tickets extends BaseEntityId{
 
     protected Tickets() { }
 
-
+    @Column(name = "price")
     public float getPrice() {
         return price;
     }
@@ -29,6 +28,7 @@ public class Tickets extends BaseEntityId{
         this.price = price;
     }
 
+    @Column(name = "status")
     public String getStatus() {
         return status;
     }
@@ -36,6 +36,7 @@ public class Tickets extends BaseEntityId{
         this.status = status;
     }
 
+    @Column(name = "place")
     public String getPlace() {
         return place;
     }
@@ -43,13 +44,13 @@ public class Tickets extends BaseEntityId{
         this.place = place;
     }
 
+    @Column(name = "choice")
     public LocalTime getChoice() {
         return choice;
     }
     public void setChoice(LocalTime choice) {
         this.choice = choice;
     }
-
 
     @OneToOne(mappedBy = "tickets", cascade = CascadeType.ALL)
     public Purchase getPurchase() {
@@ -59,3 +60,4 @@ public class Tickets extends BaseEntityId{
         this.purchase = purchase;
     }
 }
+

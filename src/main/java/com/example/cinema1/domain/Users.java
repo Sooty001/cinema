@@ -14,7 +14,6 @@ public class Users extends BaseEntityId{
     private int age;
     private Set<Purchase> purchase;
 
-
     public Users(String last_name, String first_name, String patronymic, String email, String telephone, int age){
         this.firstName = first_name;
         this.lastName = last_name;
@@ -26,7 +25,6 @@ public class Users extends BaseEntityId{
 
     protected Users() { }
 
-
     @Column(name = "first_name")
     public String getFirst_name() { return firstName; }
     public void setFirst_name(String first_name) { this.firstName = firstName; }
@@ -35,15 +33,19 @@ public class Users extends BaseEntityId{
     public String getLast_name() { return lastName; }
     public void setLast_name(String last_name) { this.lastName = lastName; }
 
+    @Column(name = "patronymic")
     public String getPatronymic() { return patronymic; }
     public void setPatronymic(String patronymic) { this.patronymic = patronymic; }
 
+    @Column(name = "email")
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
+    @Column(name = "telephone")
     public String getTelephone() { return telephone; }
     public void setTelephone(String telephone) { this.telephone = telephone; }
 
+    @Column(name = "age")
     public int getAge() { return age; }
     public void setAge(int age) { this.age = age; }
 

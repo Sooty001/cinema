@@ -1,6 +1,6 @@
 package com.example.cinema1.domain;
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -11,7 +11,6 @@ public class Halls extends BaseEntityId {
     private int hallNumber;
     private Set<Pass> pass;
 
-
     public Halls(int seats, String type, int hallNumber) {
         this.seats = seats;
         this.type = type;
@@ -19,31 +18,28 @@ public class Halls extends BaseEntityId {
     }
 
     protected Halls() {
-
     }
 
+    @Column(name = "seats")
     public int getSeats() {
         return seats;
     }
-
     public void setSeats(int seats) {
         this.seats = seats;
     }
 
-
+    @Column(name = "type")
     public String getType() {
         return type;
     }
-
     public void setType(String type) {
         this.type = type;
     }
 
-    @Column(nullable = false, name = "hall_number")
+    @Column(name = "hall_number")
     public int getHallNumber() {
         return hallNumber;
     }
-
     public void setHallNumber(int hallNumber) {
         this.hallNumber = hallNumber;
     }
@@ -53,7 +49,6 @@ public class Halls extends BaseEntityId {
     public Set<Pass> getPass() {
         return pass;
     }
-
     public void setPass(Set<Pass> pass) {
         this.pass = pass;
     }

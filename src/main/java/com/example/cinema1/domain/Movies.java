@@ -28,11 +28,10 @@ public class Movies extends BaseEntityId{
 
     protected Movies() { }
 
-
+    @Column(name = "title")
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -41,39 +40,38 @@ public class Movies extends BaseEntityId{
     public int getReleaseYear() {
         return releaseYear;
     }
-
     public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
     }
 
+    @Column(name = "genre")
     public String getGenre() {
         return genre;
     }
-
     public void setGenre(String genre) {
         this.genre = genre;
     }
 
+    @Column(name = "director")
     public String getDirector() {
         return director;
     }
-
     public void setDirector(String director) {
         this.director = director;
     }
 
+    @Column(name = "duration")
     public int getDuration() {
         return duration;
     }
-
     public void setDuration(int duration) {
         this.duration = duration;
     }
 
+    @Column(name = "rating")
     public float getRating() {
         return rating;
     }
-
     public void setRating(float rating) {
         this.rating = rating;
     }
@@ -82,7 +80,6 @@ public class Movies extends BaseEntityId{
     public int getAgeLimit() {
         return ageLimit;
     }
-
     public void setAgeLimit(int ageLimit) {
         this.ageLimit = ageLimit;
     }
@@ -92,7 +89,6 @@ public class Movies extends BaseEntityId{
     public Set<Pass> getPass() {
         return pass;
     }
-
     public void setPass(Set<Pass> pass) {
         this.pass = pass;
     }

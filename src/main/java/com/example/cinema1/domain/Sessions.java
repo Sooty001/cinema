@@ -12,7 +12,6 @@ public class Sessions extends BaseEntityId{
     private Set<Pass> pass;
     private Set<Purchase> purchase;
 
-
     public Sessions(String start_time, Date date) {
         this.startTime = start_time;
         this.date = date;
@@ -20,13 +19,13 @@ public class Sessions extends BaseEntityId{
 
     protected Sessions() { }
 
-
     @Column (name = "start_time")
     public String getStart_time() { return startTime; }
     public void setStart_time(String start_time) {
         this.startTime = startTime;
     }
 
+    @Column(name = "date")
     public Date getDate() { return date; }
     public void setDate(Date date) {
         this.date = date;
@@ -41,4 +40,5 @@ public class Sessions extends BaseEntityId{
             fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Set<Purchase> getPurchase() { return purchase; }
     public void setPurchase(Set<Purchase> purchase) { this.purchase = purchase; }
+
 }
