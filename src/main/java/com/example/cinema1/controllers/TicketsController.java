@@ -1,6 +1,6 @@
 package com.example.cinema1.controllers;
 
-import com.example.cinema1.services.impl.TicketsServiceImpl;
+import com.example.cinema1.services.TicketsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,17 +9,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/tickets")
 public class TicketsController {
 
-    private final TicketsServiceImpl ticketsService;
+    private final TicketsService ticketsService;
 
     @Autowired
-    public TicketsController(TicketsServiceImpl ticketsService) {
+    public TicketsController(TicketsService ticketsService) {
         this.ticketsService = ticketsService;
-    }
-
-    @PostMapping("/reserve/{ticketId}")
-    public ResponseEntity<String> reserveTicket(@PathVariable int ticketId) {
-        String message = ticketsService.reserveTicket(ticketId);
-        return ResponseEntity.ok(message);
     }
 
     @PostMapping("/adjust-prices")
@@ -28,8 +22,16 @@ public class TicketsController {
         return ResponseEntity.ok(message);
     }
 
+    @PostMapping("/reserve/{ticketId}")
+    public ResponseEntity<String> reserveTicket(@PathVariable int ticketId) {
+        ticketsService.validateReservations();
+        String message = ticketsService.reserveTicket(ticketId);
+        return ResponseEntity.ok(message);
+    }
+
     @PostMapping("/purchase/{ticketId}/user/{userId}")
     public ResponseEntity<String> purchaseTicket(@PathVariable int ticketId, @PathVariable int userId) {
+        ticketsService.validateReservations();
         String message = ticketsService.purchaseTicket(ticketId, userId);
         return ResponseEntity.ok(message);
     }

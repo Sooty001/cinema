@@ -1,7 +1,7 @@
 package com.example.cinema1.controllers;
 
 import com.example.cinema1.dto.MoviesDto;
-import com.example.cinema1.services.impl.UsersServiceImpl;
+import com.example.cinema1.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -10,10 +10,10 @@ import java.util.List;
 @RequestMapping("/users")
 public class UsersController {
 
-    private final UsersServiceImpl usersService;
+    private final UsersService usersService;
 
     @Autowired
-    public UsersController(UsersServiceImpl usersService) {
+    public UsersController(UsersService usersService) {
         this.usersService = usersService;
     }
 
