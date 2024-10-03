@@ -48,10 +48,4 @@ public class TicketsRepositoryImpl implements TicketsRepository {
         List<Tickets> tickets = jdbc.query(sql, new BeanPropertyRowMapper<>(Tickets.class), ticketId);
         return tickets.isEmpty() ? Optional.empty() : Optional.of(tickets.get(0));
     }
-
-    @Override
-    public void update(Tickets ticket) {
-        String sql = "UPDATE tickets SET price = ?, status = ?, choice = ? WHERE id = ?";
-        jdbc.update(sql, ticket.getPrice(), ticket.getStatus(), ticket.getChoice(), ticket.getId());
-    }
 }

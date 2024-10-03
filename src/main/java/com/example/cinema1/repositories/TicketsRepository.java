@@ -10,5 +10,4 @@ public interface TicketsRepository {
     List<Tickets> findReservedTickets();
     Tickets findAvailableTicketById(int ticketId);
     Optional<Tickets> findById(Integer ticketId);
-    void update(Tickets ticket);
 }
