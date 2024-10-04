@@ -52,7 +52,7 @@ public class Tickets extends BaseEntityId{
         this.choice = choice;
     }
 
-    @OneToOne(mappedBy = "tickets", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "tickets", cascade = CascadeType.REMOVE)
     public Purchase getPurchase() {
         return purchase;
     }
