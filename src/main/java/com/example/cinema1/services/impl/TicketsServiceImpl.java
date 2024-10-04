@@ -20,15 +20,22 @@ public class TicketsServiceImpl implements TicketsService {
     private final PurchaseRepository purchaseRepository;
     private final UsersRepository usersRepository;
     private final HallsRepository hallsRepository;
+    private final CUDRepository CUDRepository;
 
     @Autowired
-    public TicketsServiceImpl(TicketsRepository ticketsRepository, PurchaseRepository purchaseRepository, UsersRepository usersRepository, HallsRepository hallsRepository) {
+    public TicketsServiceImpl(TicketsRepository ticketsRepository, PurchaseRepository purchaseRepository, UsersRepository usersRepository, HallsRepository hallsRepository, CUDRepository CUDRepository) {
         this.ticketsRepository = ticketsRepository;
         this.purchaseRepository = purchaseRepository;
         this.usersRepository = usersRepository;
         this.hallsRepository = hallsRepository;
+        this.CUDRepository = CUDRepository;
+
+        this.CUDRepository.setCreate(false);
+        this.CUDRepository.setUpdate(true);
+        this.CUDRepository.setDelete(false);
     }
 
+    @Override
     @Transactional
     public String adjustTicketPricesForAllSessions() {
         List<Integer> sessionIds = purchaseRepository.findAllSessionIds();
@@ -42,14 +49,15 @@ public class TicketsServiceImpl implements TicketsService {
 
                 for (Tickets ticket : availableTickets) {
                     ticket.setPrice(ticket.getPrice() + 5);
-                    ticketsRepository.update(ticket);
+                    CUDRepository.updateEntity(ticket);
                 }
                 return "Успешно.";
             }
         }
-        return "Таких сансов нету.";
+        return "Таких сеансов нет.";
     }
 
+    @Override
     public void validateReservations() {
         List<Tickets> reservedTickets = ticketsRepository.findReservedTickets();
         LocalTime now = LocalTime.now();
@@ -57,13 +65,13 @@ public class TicketsServiceImpl implements TicketsService {
         for (Tickets ticket : reservedTickets) {
             if (ChronoUnit.MINUTES.between(ticket.getChoice(), now) > 15) {
                 ticket.setStatus("в наличии");
-                ticketsRepository.update(ticket);
+                CUDRepository.updateEntity(ticket);
             }
         }
     }
 
+    @Override
     public String reserveTicket(int ticketId) {
-//        validateReservations();
         if (usersRepository.findById(ticketId).isEmpty()) {
             throw new TicketNotFoundException(ticketId);
         }
@@ -71,15 +79,15 @@ public class TicketsServiceImpl implements TicketsService {
         if (ticket != null) {
             ticket.setStatus("зарезервирован");
             ticket.setChoice(LocalTime.now());
-            ticketsRepository.update(ticket);
+            CUDRepository.updateEntity(ticket);
             return "Билет успешно зарезервирован.";
         }
         throw new TicketAlreadyReservedOrSoldException(ticketId);
     }
 
+    @Override
     @Transactional
     public String purchaseTicket(int ticketId, int userId) {
-//        validateReservations();
         Tickets ticket = ticketsRepository.findById(ticketId).orElseThrow(() -> new TicketNotFoundException(ticketId));
         Users user = usersRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
 
@@ -90,8 +98,10 @@ public class TicketsServiceImpl implements TicketsService {
         Purchase purchase = purchaseRepository.findByTicketsId(ticketId);
         purchase.setUsers(user);
         ticket.setStatus("продан");
-        purchaseRepository.update(purchase);
-        ticketsRepository.update(ticket);
+
+        CUDRepository.updateEntity(purchase);
+        CUDRepository.updateEntity(ticket);
+
         return "Билет успешно куплен.";
     }
 }

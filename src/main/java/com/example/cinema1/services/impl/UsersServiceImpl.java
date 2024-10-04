@@ -26,6 +26,7 @@ public class UsersServiceImpl implements UsersService {
         this.modelMapper = modelMapper;
     }
 
+    @Override
     public List<MoviesDto> usersMovies(int userId) {
 
         if (usersRepository.findById(userId).isEmpty()) {
