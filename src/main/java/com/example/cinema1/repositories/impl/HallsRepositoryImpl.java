@@ -1,21 +1,21 @@
 package com.example.cinema1.repositories.impl;
 
 import com.example.cinema1.repositories.HallsRepository;
-import org.springframework.jdbc.core.JdbcTemplate;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class HallsRepositoryImpl implements HallsRepository {
 
-    private final JdbcTemplate jdbc;
-
-    public HallsRepositoryImpl(JdbcTemplate jdbc) {
-        this.jdbc = jdbc;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Integer findHallSeatsBySessionId(int sessionId) {
-        String sql = "SELECT h.seats FROM Halls h JOIN Pass p ON h.id = p.id_hall WHERE p.id_session = ?";
-        return jdbc.queryForObject(sql, Integer.class, sessionId);
+        String query = "SELECT h.seats FROM Halls h JOIN Pass p ON h.id = p.halls.id WHERE p.sessions.id = :sessionId";
+        return entityManager.createQuery(query, Integer.class)
+                .setParameter("sessionId", sessionId)
+                .getSingleResult();
     }
 }
