@@ -72,7 +72,7 @@ public class TicketsServiceImpl implements TicketsService {
 
     @Override
     public String reserveTicket(int ticketId) {
-        if (usersRepository.findById(ticketId).isEmpty()) {
+        if (ticketsRepository.findById(ticketId).isEmpty()) {
             throw new TicketNotFoundException(ticketId);
         }
         Tickets ticket = ticketsRepository.findAvailableTicketById(ticketId);
