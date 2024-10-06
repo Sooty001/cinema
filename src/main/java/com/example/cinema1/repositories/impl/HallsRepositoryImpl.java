@@ -13,7 +13,7 @@ public class HallsRepositoryImpl implements HallsRepository {
 
     @Override
     public Integer findHallSeatsBySessionId(int sessionId) {
-        String query = "SELECT h.seats FROM Halls h JOIN Pass p ON h.id = p.halls.id WHERE p.sessions.id = :sessionId";
+        String query = "SELECT h.seats FROM Pass p JOIN p.halls h WHERE p.sessions.id = :sessionId";
         return entityManager.createQuery(query, Integer.class)
                 .setParameter("sessionId", sessionId)
                 .getSingleResult();

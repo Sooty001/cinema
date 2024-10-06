@@ -16,7 +16,7 @@ public class TicketsRepositoryImpl implements TicketsRepository {
 
     @Override
     public Integer countSoldTicketsBySessionId(int sessionId) {
-        String query = "SELECT COUNT(t) FROM Tickets t JOIN Purchase p ON t.id = p.tickets.id WHERE p.sessions.id = :sessionId AND t.status = 'продан'";
+        String query = "SELECT COUNT(t) FROM Purchase p JOIN p.tickets t WHERE p.sessions.id = :sessionId AND t.status = 'продан' ";
         Long count = entityManager.createQuery(query, Long.class)
                 .setParameter("sessionId", sessionId)
                 .getSingleResult();
@@ -25,7 +25,7 @@ public class TicketsRepositoryImpl implements TicketsRepository {
 
     @Override
     public List<Tickets> findAvailableTicketsBySessionId(int sessionId) {
-        String query = "SELECT t FROM Tickets t JOIN Purchase p ON t.id = p.tickets.id WHERE p.sessions.id = :sessionId AND t.status = 'в наличии'";
+        String query = "SELECT t FROM Purchase p JOIN p.tickets t WHERE p.sessions.id = :sessionId AND t.status = 'в наличии'";
         return entityManager.createQuery(query, Tickets.class)
                 .setParameter("sessionId", sessionId)
                 .getResultList();

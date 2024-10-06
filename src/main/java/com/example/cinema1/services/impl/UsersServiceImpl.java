@@ -35,7 +35,7 @@ public class UsersServiceImpl implements UsersService {
 
         Map<String, Integer> genreCount = new HashMap<>();
 
-        List<Movies> movies1 = moviesRepository.findSessionsByUserId(userId);
+        List<Movies> movies1 = moviesRepository.findMoviesByUserId(userId);
 
         for (Movies movie : movies1) {
             String genre = movie.getGenre();
