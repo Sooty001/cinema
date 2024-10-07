@@ -29,7 +29,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public List<MoviesDto> usersMovies(int userId) {
 
-        if (usersRepository.findById(userId).isEmpty()) {
+        if (usersRepository.findUserById(userId).isEmpty()) {
             throw new UserNotFoundException(userId);
         }
 

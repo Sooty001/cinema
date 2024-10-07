@@ -4,5 +4,5 @@ import com.example.cinema1.domain.Users;
 import java.util.Optional;
 
 public interface UsersRepository {
-    Optional<Users> findById(int userId);
+    Optional<Users> findUserById(int userId);
 }

@@ -2,21 +2,20 @@ package com.example.cinema1.repositories.impl;
 
 import com.example.cinema1.domain.Tickets;
 import com.example.cinema1.repositories.TicketsRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class TicketsRepositoryImpl implements TicketsRepository {
+public class TicketsRepositoryImpl extends GenericCrudRepository<Tickets, Integer> implements TicketsRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    public TicketsRepositoryImpl() {
+        super(Tickets.class);
+    }
 
     @Override
     public Integer countSoldTicketsBySessionId(int sessionId) {
-        String query = "SELECT COUNT(t) FROM Purchase p JOIN p.tickets t WHERE p.sessions.id = :sessionId AND t.status = 'продан' ";
+        String query = "SELECT COUNT(t) FROM Purchase p JOIN p.tickets t WHERE p.sessions.id = :sessionId AND t.status = 'продан'";
         Long count = entityManager.createQuery(query, Long.class)
                 .setParameter("sessionId", sessionId)
                 .getSingleResult();
@@ -48,7 +47,7 @@ public class TicketsRepositoryImpl implements TicketsRepository {
     }
 
     @Override
-    public Optional<Tickets> findById(Integer ticketId) {
-        return Optional.ofNullable(entityManager.find(Tickets.class, ticketId));
+    public Optional<Tickets> findTicketById(int ticketId) {
+        return Optional.ofNullable(super.findById(ticketId));
     }
 }

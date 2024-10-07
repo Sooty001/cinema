@@ -9,10 +9,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class MoviesRepositoryImpl implements MoviesRepository {
+public class MoviesRepositoryImpl extends GenericCrudRepository<Movies, Integer> implements MoviesRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    protected MoviesRepositoryImpl(Class<Movies> entityClass) {
+        super(entityClass);
+    }
 
     @Override
     public List<Movies> findMoviesByUserId(int userId) {

@@ -2,17 +2,16 @@ package com.example.cinema1.repositories.impl;
 
 import com.example.cinema1.domain.Purchase;
 import com.example.cinema1.repositories.PurchaseRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class PurchaseRepositoryImpl implements PurchaseRepository {
+public class PurchaseRepositoryImpl extends GenericCrudRepository<Purchase, Integer> implements PurchaseRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    public PurchaseRepositoryImpl(Class<Purchase> entityClass) {
+        super(entityClass);
+    }
 
     @Override
     public Purchase findByTicketsId(int ticketsId) {

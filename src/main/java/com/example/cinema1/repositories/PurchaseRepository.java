@@ -6,4 +6,7 @@ import java.util.List;
 public interface PurchaseRepository {
     Purchase findByTicketsId(int ticketsId);
     List<Integer> findAllSessionIds();
+
+    Purchase update(Purchase entity);
+
 }

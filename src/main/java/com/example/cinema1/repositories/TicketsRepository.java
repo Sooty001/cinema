@@ -9,5 +9,7 @@ public interface TicketsRepository {
     List<Tickets> findAvailableTicketsBySessionId(int sessionId);
     List<Tickets> findReservedTickets();
     Tickets findAvailableTicketById(int ticketId);
-    Optional<Tickets> findById(Integer ticketId);
+    Optional<Tickets> findTicketById(int ticketId);
+
+    Tickets update(Tickets ticket);
 }

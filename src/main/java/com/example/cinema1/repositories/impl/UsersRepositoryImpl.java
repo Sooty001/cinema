@@ -9,13 +9,14 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public class UsersRepositoryImpl implements UsersRepository {
+public class UsersRepositoryImpl extends GenericCrudRepository<Users, Integer> implements UsersRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    protected UsersRepositoryImpl(Class entityClass) {
+        super(entityClass);
+    }
 
     @Override
-    public Optional<Users> findById(int userId) {
+    public Optional<Users> findUserById(int userId) {
         return Optional.ofNullable(entityManager.find(Users.class, userId));
     }
 }
